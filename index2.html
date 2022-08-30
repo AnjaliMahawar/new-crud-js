@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+    <input type="text" id="title-value">
+    <input type="text" id="body-value">
+    <button type="submit" onclick="create()" class="btn-btn-primary">Add post</button>
+    <table class="table table-stripped">
+        <thead>
+            <tr>
+                <th>id</th>
+                <th>content</th>
+                <th>createdAt</th>
+
+            </tr>
+        </thead>
+        <tbody id="data">
+
+
+        </tbody>
+
+    </table>
+
+    <script>
+        /*   function getData(us){
+                   console.log("kkk",data);
+                   if (data.length > 0) {
+                       var temp = "";
+                      
+                    data.forEach((u) => {
+   
+                           temp += "<tr>";
+                           temp += "<td>" + u._id + "</td>" + "  ";
+                           temp += "  " + "<td>" + u.content + "</td>";
+                           temp += "  " + "<td>" + u.createdAt + "</td></tr>";
+   
+                       }); 
+                       document.getElementById('data').innerHTML = temp;
+                   } 
+   
+               } */
+
+
+        fetch('https://8c38-106-214-14-207.in.ngrok.io/api/todos/')
+
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if (data.length > 0) {
+                    var temp = "";
+                    //  getData()
+                    data.forEach((u) => {
+
+                        temp += "<tr>";
+                        temp += "<td>" + u._id + "</td>" + "  ";
+                        temp += "  " + "<td>" + u.content + "</td>";
+                        temp += "  " + "<td>" + u.createdAt + "</td></tr>";
+
+                    });
+                    document.getElementById('data').innerHTML = temp;
+                }
+
+            }
+
+            ).catch((err) => {
+                console.log(err)
+            });
+        //create
+        /*   add-post-from.addEventListern('submit',(e)=>{
+               e.preventDefault()
+               console.log('from submited ...')
+           })
+           */
+        function create() {
+            console.log("dshfbghxdsf")
+
+            var content = document.getElementById("body-value").value;
+           
+            console.log(content)
+            // console.log(b)
+
+            fetch('https://8c38-106-214-14-207.in.ngrok.io/api/todo/create', content, {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json'
+
+                },
+                body: JSON.stringify({
+                    content: content
+                })
+            }).then(response => response.json())
+                .then((data) => {
+                    console.log("crr", data)
+               
+                   
+
+                })
+
+        }
+
+    </script>
+</body>
+
+</html>
